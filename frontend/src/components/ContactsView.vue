@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { onMounted, ref } from 'vue';
 
-  const contacts = ref<Array<{ id: number; name: string; email: string }>>([]);
+  const contacts = ref<Array<{ id: number; name: string; email: string; phone: number }>>([]);
 
   onMounted(async () => {
     try {
@@ -11,11 +11,12 @@
       }
       const data = await response.json();
       console.log(data);
-      contacts.value = data.map((user: any) => ({
-        id: user.id,
-        name: user.name,
-        email: user.email,
-      }));
+      contacts.value = data
+      // .map((user: any) => ({
+      //   id: user.id,
+      //   name: user.name,
+      //   email: user.email,
+      // }));
     } catch (error) {
       console.error('Error fetching contacts:', error);
     }
@@ -27,7 +28,7 @@
     <h1>Contact List</h1>
     <ul>
       <li v-for="contact in contacts" :key="contact.id">
-        <strong>{{ contact.name }}</strong> - {{ contact.email }}
+        <strong>{{ contact.name }}</strong> <span>☎️ {{ contact.phone }}</span> <span>📧 {{ contact.email }}</span>
       </li>
     </ul>
   </div>
