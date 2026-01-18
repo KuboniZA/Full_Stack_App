@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
+
+
 const name = ref('');
 const surname = ref('');
 const email = ref('');
@@ -48,6 +50,7 @@ function handleSubmit() {
     phone.value = '';
   };
   resetForm();
+  hideForm();
 }
 
 // Form visibility management

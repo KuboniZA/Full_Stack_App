@@ -1,7 +1,9 @@
 <script setup lang="ts">
   import { onMounted, ref } from 'vue';
 
+
   const contacts = ref<Array<{ id: number; name: string; surname: string; email: string; phone: number }>>([]);
+
 
   onMounted(async () => {
     try {
@@ -16,6 +18,24 @@
       console.error('Error fetching contacts:', error);
     }
   });
+
+  const deleteContact = async (id: number) => {
+    const confirmDelete = confirm('Are you sure you want to delete this contact?');
+    if (!confirmDelete) return;
+
+    try {
+      const response = await fetch(`http://127.0.0.1:5000/contacts/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      // Remove the deleted contact from the local state
+      contacts.value = contacts.value.filter(contact => contact.id !== id);
+    } catch (error) {
+      console.error('Error deleting contact:', error);
+    }
+  };
 </script>
 
 <template>
@@ -39,7 +59,7 @@
           <td>{{ contact.email }}</td>
           <td>
             <button>Edit</button>
-            <button>Delete</button>
+            <button @click="deleteContact(contact.id)">Delete</button>
           </td>
         </tr>
       </tbody>
