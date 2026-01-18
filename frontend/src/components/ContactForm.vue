@@ -50,12 +50,18 @@ function handleSubmit() {
   resetForm();
 }
 
+const formVisible = ref(false);
+
+const toggleFormVisible = () => {
+  formVisible.value = !formVisible.value;
+};
+
 </script>
 
  <template>
    <div>
-     <h2>Add Contact</h2>
-     <form @submit.prevent="handleSubmit">
+     <button class="add-contact-btn" @click="toggleFormVisible"><h2>Add Contact</h2></button>
+     <form @submit.prevent="handleSubmit" v-show="formVisible">
        <div>
          <label for="name">Name:</label>
          <input type="text" id="name" v-model="name" name="name" required />
@@ -72,7 +78,7 @@ function handleSubmit() {
          <label for="phone">Phone:</label>
          <input type="tel" id="phone" v-model="phone" name="phone" required />
        </div>
-       <button type="submit">Submit</button>
+       <button class="submit-btn" type="submit">Submit</button>
      </form>
    </div>
  </template>
@@ -97,7 +103,7 @@ function handleSubmit() {
      font-size: 14px;
    }
 
-   button {
+   .submit-btn {
      padding: 10px;
      font-size: 16px;
      background-color: #4CAF50;
@@ -107,7 +113,15 @@ function handleSubmit() {
      border-radius: 1000px;
    }
 
-   button:hover {
+   .submit-btn:hover {
      background-color: #45a049;
+   }
+
+   .add-contact-btn {
+     padding: 5px;
+     font-size: 16px;
+     border: none;
+     cursor: pointer;
+     border-radius: 25px;
    }
  </style>
