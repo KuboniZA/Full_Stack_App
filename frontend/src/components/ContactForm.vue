@@ -52,16 +52,21 @@ function handleSubmit() {
 
 const formVisible = ref(false);
 
-const toggleFormVisible = () => {
-  formVisible.value = !formVisible.value;
+const makeFormVisible = () => {
+  formVisible.value = true
+};
+
+const hideForm = () => {
+  formVisible.value = false
 };
 
 </script>
 
  <template>
    <div>
-     <button class="add-contact-btn" @click="toggleFormVisible"><h2>Add Contact</h2></button>
+     <button class="add-contact-btn" @click="makeFormVisible"><h2>Add Contact</h2></button>
      <form @submit.prevent="handleSubmit" v-show="formVisible">
+      <span @click="hideForm">&times;</span>
        <div>
          <label for="name">Name:</label>
          <input type="text" id="name" v-model="name" name="name" required />
