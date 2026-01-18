@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
+const emittedEvent = defineEmits(['contact-updated']);
+
 const name = ref('');
 const surname = ref('');
 const email = ref('');
@@ -45,6 +47,7 @@ function handleSubmit() {
       surname.value = '';
       email.value = '';
       phone.value = '';
+      emittedEvent('contact-updated'); // Notify parent component to refresh contact list
       hideForm();
     })
     .catch((error) => {

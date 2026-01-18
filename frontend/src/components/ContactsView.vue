@@ -5,7 +5,7 @@
   const contactForm = ref<InstanceType<typeof ContactForm> | null>(null);
   const contacts = ref<Array<{ id: number; name: string; surname: string; email: string; phone: number }>>([]);
 
-  onMounted(async () => {
+  const fetchContacts = async () => {
     try {
       const response = await fetch('http://127.0.0.1:5000/contacts');
       if (!response.ok) {
@@ -17,6 +17,10 @@
     } catch (error) {
       console.error('Error fetching contacts:', error);
     }
+  };
+
+  onMounted(() => {
+    fetchContacts();
   });
 
   const deleteContact = async (id: number) => {
@@ -45,7 +49,7 @@
 
 <template>
   <div>
-    <ContactForm ref="contactForm" />
+    <ContactForm ref="contactForm" @contact-updated="fetchContacts" /> <!-- listent to the ContactForm's emitted events -->
     <p v-if="contacts.length === 0">No contacts added. Click "Add New Contact" to get started.</p>
     <div v-else>
       <h1>Contact List</h1>
