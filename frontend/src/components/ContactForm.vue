@@ -52,13 +52,16 @@ function handleSubmit() {
 
 // Form visibility management
 const formVisible = ref(false);
+const modalVisible = ref(false);
 
 const makeFormVisible = () => {
-  formVisible.value = true
+  formVisible.value = true;
+  modalVisible.value = true;
 };
 
 const hideForm = () => {
-  formVisible.value = false
+  formVisible.value = false;
+  modalVisible.value = false;
 };
 
 </script>
@@ -66,6 +69,7 @@ const hideForm = () => {
  <template>
    <div>
      <button class="add-contact-btn" @click="makeFormVisible">Add Contact</button>
+     <div class="modal-overlay" v-show="modalVisible"></div>
      <form @submit.prevent="handleSubmit" v-show="formVisible" class="form">
       <span @click="hideForm" class="hide-form-btn">&times;</span>
        <div>
@@ -96,7 +100,7 @@ const hideForm = () => {
      flex-direction: column;
      width: 300px;
      position: fixed;
-     z-index: 1;
+     z-index: 2;
      top: 25%;
      left: 25%;
      width: 50%;
@@ -107,6 +111,17 @@ const hideForm = () => {
      border-radius: 15px;
      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
    }
+   .modal-overlay {
+    /* Position it fixed relative to the browser window */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* 60% opacity black */
+    z-index: 1;
+}
+
 
    div {
      margin-bottom: 10px;
@@ -119,6 +134,12 @@ const hideForm = () => {
    input {
      padding: 8px;
      font-size: 14px;
+     border-radius: 5px;
+      border: none;
+   }
+   input:focus {
+     outline: none;
+     border: 2px solid #4CAF50;
    }
 
    .submit-btn {
