@@ -46,30 +46,34 @@
 <template>
   <div>
     <ContactForm ref="contactForm" />
-    <h1>Contact List</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Surname</th>
-          <th>Phone</th>
-          <th>Email</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="contact in contacts" :key="contact.id">
-          <td>{{ contact.name }}</td>
-          <td>{{ contact.surname }}</td>
-          <td>{{ contact.phone }}</td>
-          <td>{{ contact.email }}</td>
-          <td>
-            <button @click="editContact(contact)">Edit</button>
-            <button @click="deleteContact(contact.id)">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <p v-if="contacts.length === 0">No contacts added. Click "Add New Contact" to get started.</p>
+    <div v-else>
+      <h1>Contact List</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="contact in contacts" :key="contact.id">
+            <td>{{ contact.name }}</td>
+            <td>{{ contact.surname }}</td>
+            <td>{{ contact.phone }}</td>
+            <td>{{ contact.email }}</td>
+            <td>
+              <button @click="editContact(contact)">Edit</button>
+              <button @click="deleteContact(contact.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+
   </div>
 </template>
 

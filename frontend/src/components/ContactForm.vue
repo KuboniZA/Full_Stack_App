@@ -79,14 +79,14 @@ const hideForm = () => {
 
 const editingContactId = ref<number | null>(null);
 
-  const setContact = (contact: { id: number; name: string; surname: string; email: string; phone: number }) => {
-    editingContactId.value = contact.id;
+const setContact = (contact: { id: number; name: string; surname: string; email: string; phone: number }) => {
+  editingContactId.value = contact.id;
 
-    name.value = contact.name;
-    surname.value = contact.surname;
-    email.value = contact.email;
-    phone.value = contact.phone;
-  };
+  name.value = contact.name;
+  surname.value = contact.surname;
+  email.value = contact.email;
+  phone.value = String(contact.phone);
+};
 
 // Expose methods to parent component
 
@@ -99,7 +99,7 @@ defineExpose({
 
  <template>
    <div>
-     <button class="add-contact-btn" @click="makeFormVisible">Add Contact</button>
+     <button class="add-contact-btn" @click="makeFormVisible">Add New Contact</button>
      <div class="modal-overlay" v-show="modalVisible"></div>
      <form @submit.prevent="handleSubmit" v-show="formVisible" class="form">
       <span @click="hideForm" class="hide-form-btn">&times;</span>
