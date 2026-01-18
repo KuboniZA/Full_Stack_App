@@ -1,9 +1,9 @@
 <script setup lang="ts">
+  import ContactForm from './ContactForm.vue';
   import { onMounted, ref } from 'vue';
 
-
+  const contactForm = ref<InstanceType<typeof ContactForm> | null>(null);
   const contacts = ref<Array<{ id: number; name: string; surname: string; email: string; phone: number }>>([]);
-
 
   onMounted(async () => {
     try {
@@ -36,10 +36,16 @@
       console.error('Error deleting contact:', error);
     }
   };
+
+  const editContact = (contact: { id: number; name: string; surname: string; email: string; phone: number }) => {
+    contactForm.value?.setContact(contact);
+    contactForm.value?.makeFormVisible();
+  };
 </script>
 
 <template>
   <div>
+    <ContactForm ref="contactForm" />
     <h1>Contact List</h1>
     <table>
       <thead>
@@ -58,7 +64,7 @@
           <td>{{ contact.phone }}</td>
           <td>{{ contact.email }}</td>
           <td>
-            <button>Edit</button>
+            <button @click="editContact(contact)">Edit</button>
             <button @click="deleteContact(contact.id)">Delete</button>
           </td>
         </tr>

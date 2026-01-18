@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-
-
 const name = ref('');
 const surname = ref('');
 const email = ref('');
@@ -23,9 +21,12 @@ function handleSubmit() {
     phone: phone.value,
   };
   // You can send newContact to your backend API here
-  const apiUrl = 'http://127.0.0.1:5000/create-contacts';
-  const requestOptions = {
-    method: 'POST',
+  const apiUrl = editingContactId.value
+    ? `http://127.0.0.1:5000/contacts/${editingContactId.value}`
+    : 'http://127.0.0.1:5000/create-contacts';
+
+    const requestOptions = {
+    method: editingContactId.value ? 'PUT' : 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(newContact),
   };
@@ -38,6 +39,13 @@ function handleSubmit() {
     })
     .then((data) => {
       console.log('Contact created successfully:', data);
+
+      editingContactId.value = null; // Reset editing state after successful submission
+      name.value = '';
+      surname.value = '';
+      email.value = '';
+      phone.value = '';
+      hideForm();
     })
     .catch((error) => {
       console.error('Error creating contact:', error);
@@ -67,6 +75,26 @@ const hideForm = () => {
   modalVisible.value = false;
 };
 
+// Add editing functionality
+
+const editingContactId = ref<number | null>(null);
+
+  const setContact = (contact: { id: number; name: string; surname: string; email: string; phone: number }) => {
+    editingContactId.value = contact.id;
+
+    name.value = contact.name;
+    surname.value = contact.surname;
+    email.value = contact.email;
+    phone.value = contact.phone;
+  };
+
+// Expose methods to parent component
+
+defineExpose({
+  makeFormVisible,
+  hideForm,
+  setContact
+});
 </script>
 
  <template>
