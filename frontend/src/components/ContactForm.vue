@@ -50,6 +50,7 @@ function handleSubmit() {
   resetForm();
 }
 
+// Form visibility management
 const formVisible = ref(false);
 
 const makeFormVisible = () => {
@@ -64,24 +65,24 @@ const hideForm = () => {
 
  <template>
    <div>
-     <button class="add-contact-btn" @click="makeFormVisible"><h2>Add Contact</h2></button>
-     <form @submit.prevent="handleSubmit" v-show="formVisible">
-      <span @click="hideForm">&times;</span>
+     <button class="add-contact-btn" @click="makeFormVisible">Add Contact</button>
+     <form @submit.prevent="handleSubmit" v-show="formVisible" class="form">
+      <span @click="hideForm" class="hide-form-btn">&times;</span>
        <div>
          <label for="name">Name:</label>
-         <input type="text" id="name" v-model="name" name="name" required />
+         <input type="text" id="name" v-model="name" name="name" required placeholder="First Name" />
        </div>
        <div>
          <label for="surname">Surname:</label>
-         <input type="text" id="surname" v-model="surname"  name="surname" required />
+         <input class="surname-input" type="text" id="surname" v-model="surname"  name="surname" required placeholder="Last Name" />
        </div>
        <div>
          <label for="email">Email:</label>
-         <input type="email" id="email" v-model="email" name="email" required />
+         <input type="email" id="email" v-model="email" name="email" required placeholder="Email Address" />
        </div>
        <div>
          <label for="phone">Phone:</label>
-         <input type="tel" id="phone" v-model="phone" name="phone" required />
+         <input type="tel" id="phone" v-model="phone" name="phone" required placeholder="Phone Number" />
        </div>
        <button class="submit-btn" type="submit">Submit</button>
      </form>
@@ -89,10 +90,22 @@ const hideForm = () => {
  </template>
 
  <style scoped>
-   form {
+
+   .form {
      display: flex;
      flex-direction: column;
      width: 300px;
+     position: fixed;
+     z-index: 1;
+     top: 25%;
+     left: 25%;
+     width: 50%;
+     height: auto;
+     overflow: auto;
+     background-color: #ddd;
+     padding: 20px;
+     border-radius: 15px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
    }
 
    div {
@@ -116,6 +129,10 @@ const hideForm = () => {
      border: none;
      cursor: pointer;
      border-radius: 1000px;
+     width: 100px;
+     position: relative;
+     left: 50%;
+     transform: translateX(-50%);
    }
 
    .submit-btn:hover {
@@ -129,4 +146,25 @@ const hideForm = () => {
      cursor: pointer;
      border-radius: 25px;
    }
+   .hide-form-btn {
+     font-size: 28px;
+     font-weight: bold;
+     position: absolute;
+     top: 10px;
+     right: 20px;
+     cursor: pointer;
+   }
+   .hide-form-btn:hover {
+     color: red;
+     cursor: pointer;
+   }
+   input {
+     width: 80%;
+     position: relative;
+     left: 2.5rem;
+   }
+    .surname-input {
+      position: relative;
+      left: 1.4rem;
+    }
  </style>
