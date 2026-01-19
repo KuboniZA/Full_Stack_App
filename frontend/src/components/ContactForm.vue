@@ -196,10 +196,18 @@ defineExpose({
 
    .add-contact-btn {
      padding: 5px;
+     width: 24rem;
      font-size: 16px;
      border: none;
      cursor: pointer;
      border-radius: 25px;
+     position: relative;
+     left: 50%;
+     transform: translateX(-50%);
+     background-color: #4CAF50;
+   }
+   .add-contact-btn:hover {
+     background-color: #45a049;
    }
    .hide-form-btn {
      font-size: 28px;
@@ -212,6 +220,8 @@ defineExpose({
    .hide-form-btn:hover {
      color: red;
      cursor: pointer;
+     border: 1px solid red;
+     padding: 0 7px;
    }
    input {
      width: 80%;

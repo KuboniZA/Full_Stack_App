@@ -50,9 +50,9 @@
 <template>
   <div>
     <ContactForm ref="contactForm" @contact-updated="fetchContacts" /> <!-- listent to the ContactForm's emitted events -->
-    <p v-if="contacts.length === 0">No contacts added. Click "Add New Contact" to get started.</p>
+    <p class="no-contacts" v-if="contacts.length === 0">No contacts added. Click "Add New Contact" to get started.</p>
     <div v-else>
-      <h1>Contact List</h1>
+      <h1>Contact List:</h1>
       <table>
         <thead>
           <tr>
@@ -101,5 +101,18 @@
 
   button {
     margin-right: 5px;
+  }
+  .no-contacts {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-top: 2rem;
+    position: relative;
+    top: 15rem;
+  }
+  h1 {
+    left: 2.75%;
+    position: relative;
+    font-size: 2rem;
+    margin-bottom: 1rem;
   }
 </style>
